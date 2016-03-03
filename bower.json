@@ -1,0 +1,40 @@
+{
+  "name": "dasher.js",
+  "description": "",
+  "main": "server.js",
+  "authors": [
+    "Brian Thompson"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/GenYDeveloper/dasher.js",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.0",
+    "lodash": "^4.6.1",
+    "bootstrap": "^3.3.6",
+    "jquery": "^2.2.1",
+    "angular-touch": "^1.5.0",
+    "angular-animate": "^1.5.0",
+    "angular-route": "^1.5.0",
+    "angular-sanitize": "^1.5.0"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "./dist/js/bootstrap.min.js",
+        "./dist/css/*.min.*",
+        "./dist/fonts/*.*"
+      ]
+    }
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.5.0"
+  }
+}
