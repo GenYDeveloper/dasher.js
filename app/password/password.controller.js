@@ -5,15 +5,33 @@
     .module('dasherApp')
     .controller('PasswordController', PasswordController);
 
-  function PasswordController() {
+  function PasswordController($scope) {
     var vm = this;
     vm.passwords = [];
-    // vm.passwordAmount = $scope.password.amount;
-    // vm.letterAmount = $scope.password.letters;
-    // vm.numberAmount = $scope.password.numbers;
-    // vm.symbolAmount = $scope.password.symbols;
 
-    vm.getRandomLetters = function(amount) {
+    vm.createPasswords = function() {
+      // get html input values
+      var amount = $scope.password.amount;
+      var letterAmount = $scope.password.letters; 
+      var numberAmount = $scope.password.numbers;
+      var symbolAmount = $scope.password.symbols;
+      _.times(amount, function(i) {
+        // concat character chunks
+        var password = getRandomLetters(letterAmount) +
+          getRandomNumbers(numberAmount) + getRandomSymbols(symbolAmount);
+        password = _.shuffle(password); // shuffle the password
+        password = _.join(password, ''); // transform array to a string
+        password = _.replace(password, ',', ''); // remove commas from password
+        vm.passwords[i] = password; // add password to passwords array
+      });
+      letterAmount = null;
+      numberAmount = null;
+      symbolAmount = null;
+      console.log(vm.passwords);
+      return vm.passwords;
+    };
+
+    function getRandomLetters(amount) {
       var flip = null; // bit deciding if letter is uppercase or lowercase
       var letters = []; // array of random letters
 
@@ -30,12 +48,12 @@
         letters[i] = letter; // add new random letter to letters array
         letter = null;
       });
-      // console.log(letters);
+      letters = _.join(letters, ''); // transform array to a string
       flip = null;
       return letters;
-    };
+    }
 
-    vm.getRandomNumbers = function(amount) {
+    function getRandomNumbers(amount) {
       var numbers = []; // array of random numbers
 
       _.times(amount, function(i) {
@@ -44,11 +62,11 @@
         numbers[i] = number; // add new random number to numbers array
         number = null;
       });
-      // console.log(numbers);
+      numbers = _.join(numbers, ''); // transform array to a string
       return numbers;
-    };
+    }
 
-    vm.getRandomSymbols = function(amount) {
+    function getRandomSymbols(amount) {
       var symbols = []; // array of random symbols
 
       _.times(amount, function(i) {
@@ -57,28 +75,9 @@
         symbols[i] = symbol; // add new symbol to the symbols array
         symbol = null;
       });
-      // console.log(symbols);
+      symbols = _.join(symbols, ''); // transform array to a string
       return symbols;
-    };
-
-    vm.createPasswords = function() {
-      var amount = vm.passwordAmount;
-      var letterAmount = vm.letterAmount;
-      var numberAmount = vm.numberAmount;
-      var symbolAmount = vm.symbolAmount;
-      _.times(amount, function(i) {
-        var password = vm.getRandomLetters(letterAmount) +
-          vm.getRandomNumbers(numberAmount) + vm.getRandomSymbols(symbolAmount);
-        vm.passwords[i] = password;
-      });
-      console.log(vm.passwords);
-      return vm.passwords;
-    };
-
-    // vm.getRandomLetters(100);
-    // vm.getRandomSymbols(100);
-    // vm.getRandomNumbers(100);
-    // vm.createPasswords(vm.passwordAmount);
+    }
   }
 })();
 
