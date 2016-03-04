@@ -6,7 +6,11 @@
     .controller('PasswordController', PasswordController);
 
   function PasswordController($scope) {
-    var vm = this;
+    var vm = this,
+      LETTER_CHARCODE = 65,
+      NUMBER_CHARCODE = 48,
+      SYMBOL_CHARCODE = 33;
+
     vm.passwords = [];
 
     vm.createPasswords = function() {
@@ -36,7 +40,7 @@
       var letters = []; // array of random letters
 
       _.times(amount, function(i) {
-        var letter = _.random(25) + 65; // random ASCII decimal for uppercase letters
+        var letter = _.random(25) + LETTER_CHARCODE; // random ASCII decimal for uppercase letters
         letter = String.fromCharCode(letter); // conversion from ASCII decimal to letter value
         flip = _.random(1); // flip bit
         if(flip === 0) {
@@ -57,7 +61,7 @@
       var numbers = []; // array of random numbers
 
       _.times(amount, function(i) {
-        var number = _.random(9) + 48; // random ASCII decimal for numbers
+        var number = _.random(9) + NUMBER_CHARCODE; // random ASCII decimal for numbers
         number = String.fromCharCode(number); //conversion from ASCII decimal to number value
         numbers[i] = number; // add new random number to numbers array
         number = null;
@@ -70,7 +74,7 @@
       var symbols = []; // array of random symbols
 
       _.times(amount, function(i) {
-        var symbol = _.random(13) + 33; // random ASCII decimal for subset of symbols
+        var symbol = _.random(13) + SYMBOL_CHARCODE; // random ASCII decimal for subset of symbols
         symbol = String.fromCharCode(symbol); // conversion from ASCII decimal to symbol value
         symbols[i] = symbol; // add new symbol to the symbols array
         symbol = null;
